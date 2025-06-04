@@ -1,7 +1,7 @@
 # 🧠 Neuro Imaging Analysis and Research (NIAR)
 
 ## Project Title
-**Identifying Disease-Related Changes in Brain Activity Using fMRI and Machine Learning**
+**Identifying Disease-Related Changes in Brain Activity Combinig Magnetic Resonance Imaging and Machine Learning**
 
 ## Overview
 This project focuses on analyzing **resting-state functional MRI (rs-fMRI)** data to identify **biomarkers of neurological diseases**. By comparing brain network activity between patients and healthy controls, we aim to discover patterns that signal early signs of disease and model their progression over time.
