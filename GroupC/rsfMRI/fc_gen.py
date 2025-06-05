@@ -2,7 +2,7 @@ import os
 import nibabel as nib
 import numpy as np
 from nilearn import datasets, input_data, connectome
-from Util.util import get_mri_file_path
+from Util.util_io import get_mri_file_path
 from Util.config import OUTPUT_ROOT
 
 # load 4D functional MRI image
