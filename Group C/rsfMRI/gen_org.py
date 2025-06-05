@@ -1,14 +1,13 @@
 import os
 import nibabel as nib
 from nilearn import plotting
-from util import get_mri_file_path
-from config import OUTPUT_ROOT
+from Util.util import get_mri_file_path
+from Util.config import OUTPUT_ROOT
 import matplotlib
 matplotlib.use('MacOSX')  # option: TkAgg (Tkinter GUI), MacOSX
 
-# import dataset
-file_path = get_mri_file_path(pre_path=['..', '..', '..'],
-                              dataset_name='MRIData',
+# load dataset
+file_path = get_mri_file_path(dataset_name='MRIData',
                               path=['sub-kaneff01', 'anat', 'sub-kaneff01_T1w.nii.gz'])
 img = nib.load(file_path)
 

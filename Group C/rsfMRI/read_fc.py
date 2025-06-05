@@ -1,10 +1,14 @@
+import os
 import numpy as np
 from nilearn import plotting
+from Util.config import OUTPUT_ROOT
 import matplotlib
 matplotlib.use('Agg')
 
 # Load the matrix
-matrix = np.load('connectivity_matrix_run001.npy')
+matrix_path = os.path.join(OUTPUT_ROOT, 'fc', 'connectivity_matrix_run001.npy')
+save_path = os.path.join(OUTPUT_ROOT, 'fc', 'connectivity_matrix_run001.png')
+matrix = np.load(matrix_path)
 
 # Generate and save the connectivity matrix figure
 display = plotting.plot_matrix(matrix,
@@ -12,7 +16,6 @@ display = plotting.plot_matrix(matrix,
                                vmin=-1.0, vmax=1.0,
                                colorbar=True,
                                title='Functional Connectivity')
+display.figure.savefig(save_path, dpi=300)
 
-# Save the figure instead of calling plotting.show()
-display.figure.savefig('fc_matrix.png', dpi=300)
-display.close()
+print(f"Connectivity matrix figure saved to: {matrix_path}")
