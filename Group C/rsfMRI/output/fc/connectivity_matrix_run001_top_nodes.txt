@@ -1,0 +1,10 @@
+Cerebelum_8_R: 0.102
+ParaHippocampal_R: 0.083
+Fusiform_L: 0.083
+Lingual_R: 0.074
+Hippocampus_R: 0.065
+Calcarine_R: 0.065
+Cuneus_R: 0.065
+Lingual_L: 0.065
+ParaHippocampal_L: 0.056
+Cerebelum_4_5_L: 0.046
