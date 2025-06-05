@@ -17,3 +17,11 @@ MRI-Research/
 - This structure makes it easier to set up relative paths for importing datasets, especially since datasets cannot be pushed to the repository.
 
 > **Note:** Datasets are not included in this repository. Please download them manually and place them under the `MRI-Research/` folder.
+
+
+### Dependency
+
+For dependency of the project, run:
+```bash
+  pip install -r dependency.txt
+```
