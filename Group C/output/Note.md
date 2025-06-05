@@ -1,0 +1,1 @@
+This folder is root folder for all generation results.
