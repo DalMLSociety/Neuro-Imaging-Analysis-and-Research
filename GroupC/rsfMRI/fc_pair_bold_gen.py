@@ -25,17 +25,17 @@ masker = input_data.NiftiLabelsMasker(labels_img=atlas.maps, standardize=True, d
 region_ts = masker.fit_transform(bold_img)
 labels = atlas.labels
 
-# Extract time series from the two ROIs
+# extract time series from the two ROIs
 idx_a = np.where(np.array(labels) == label_a)[0][0]
 idx_b = np.where(np.array(labels) == label_b)[0][0]
 ts_a = region_ts[:, idx_a]
 ts_b = region_ts[:, idx_b]
 
-# Compute functional connectivity metrics
+# compute functional connectivity metrics
 pearson_corr = np.corrcoef(ts_a, ts_b)[0, 1]
 f_coh, coh = coherence(ts_a, ts_b)
 
-# Create 2x2 subplot figure
+# create 2x2 subplot figure
 fig, axes = plt.subplots(2, 2, figsize=(12, 10))
 
 # (a) Show both ROIs on anatomical background
@@ -43,13 +43,13 @@ fig, axes = plt.subplots(2, 2, figsize=(12, 10))
 roi_fig = plotting.plot_roi(atlas.maps, bg_img=anat_img,
                             display_mode='ortho', cut_coords=None)
 
-# Save to memory buffer
+# save to memory buffer
 buf = BytesIO()
 roi_fig.frame_axes.figure.savefig(buf, format='png', dpi=150, bbox_inches='tight')
 roi_fig.close()
 buf.seek(0)
 
-# Convert to image and draw on subplot
+# convert to image and draw on subplot
 img_roi = Image.open(buf)
 axes[0, 0].imshow(img_roi)
 axes[0, 0].axis('off')
@@ -76,7 +76,7 @@ text = f"(d) Functional Connectivity\n\n" \
        f"• Frequency-domain similarity = {np.max(coh):.4f} (Coherence)"
 axes[1, 1].text(0, 0.5, text, fontsize=12, va="center", ha="left")
 
-# Save the final figure
+# save the final figure
 os.makedirs(output_dir, exist_ok=True)
 out_path = os.path.join(output_dir, f"{save_prefix}_{label_a}_{label_b}.png")
 plt.subplots_adjust(wspace=0.3, hspace=0.3)

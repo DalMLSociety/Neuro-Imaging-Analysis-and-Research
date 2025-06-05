@@ -8,7 +8,7 @@ import matplotlib
 matplotlib.use('MacOSX')  # option: TkAgg (Tkinter GUI), MacOSX
 
 
-# Prepare target calls
+# prepare target calls
 def run(axis_name):
     file_path = get_mri_file_path(dataset_name='MRIData',
                                   path=['sub-kaneff01', 'anat', 'sub-kaneff01_T1w.nii.gz'])

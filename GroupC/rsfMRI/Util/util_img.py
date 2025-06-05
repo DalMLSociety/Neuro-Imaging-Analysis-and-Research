@@ -3,8 +3,8 @@ from nibabel.affines import apply_affine
 from nilearn import plotting
 
 
-# Save anatomical slices (sagittal, coronal, axial)
-# Arguments:
+# save anatomical slices (sagittal, coronal, axial)
+# params:
 #   img: nibabel image object
 #   axis: 'x' (sagittal), 'y' (coronal), or 'z' (axial)
 #   output_dir: directory to save the output images
