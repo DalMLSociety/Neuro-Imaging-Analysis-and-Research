@@ -1,3 +1,4 @@
 nibabel
-rankdata
+scipy
+nilearn
 tqdm
