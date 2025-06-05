@@ -16,9 +16,9 @@
 
 # Group C
 # Ignore everything in Group C's output folder
-Group\ C/rsfMRI/output/*
+#Group\ C/rsfMRI/output/*
 # Except Note.md
-!Group\ C/rsfMRI/output/Note.md
+#!Group\ C/rsfMRI/output/Note.md
 
 
 
