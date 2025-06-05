@@ -1,1 +1,33 @@
 .idea/workspace.xml
+
+# Group A
+
+
+
+
+
+
+# Group B
+
+
+
+
+
+
+# Group C
+# Ignore everything in Group C's output folder
+Group\ C/rsfMRI/output/*
+# Except Note.md
+!Group\ C/rsfMRI/output/Note.md
+
+
+
+# Group D
+
+
+
+
+
+
+
+# Group E
