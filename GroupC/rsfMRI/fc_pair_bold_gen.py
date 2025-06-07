@@ -4,8 +4,8 @@ import nibabel as nib
 import matplotlib.pyplot as plt
 from nilearn import plotting, datasets, input_data
 from scipy.signal import coherence
-from Util.util_io import get_mri_file_path
-from Util.config import OUTPUT_ROOT
+from Util.util_io import mri_path
+from Util.config import OUTPUT_ROOT, NIAR
 from PIL import Image
 from io import BytesIO
 
@@ -13,10 +13,10 @@ label_a = "Hippocampus_L"
 label_b = "Angular_L"
 output_dir = os.path.join(OUTPUT_ROOT, "fc2")
 save_prefix = "connectivity_pair"
-anat_path = get_mri_file_path(dataset_name="MRIData",
-                              path=["sub-kaneff01", "anat", "sub-kaneff01_T1w.nii.gz"])
-bold_path = get_mri_file_path(dataset_name="MRIData",
-                              path=["sub-kaneff01", "func", "sub-kaneff01_task-effloc_run-001_bold.nii.gz"])
+anat_path = mri_path(name=NIAR,
+                     path=["sub-kaneff01", "anat", "sub-kaneff01_T1w.nii.gz"])
+bold_path = mri_path(name=NIAR,
+                     path=["sub-kaneff01", "func", "sub-kaneff01_task-effloc_run-001_bold.nii.gz"])
 
 bold_img = nib.load(bold_path)
 anat_img = nib.load(anat_path)

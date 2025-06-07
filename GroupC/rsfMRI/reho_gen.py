@@ -4,16 +4,17 @@ import os
 from scipy.stats import rankdata
 from nilearn.masking import compute_brain_mask
 from tqdm import tqdm
-from Util.util_io import get_mri_file_path
-from Util.config import OUTPUT_ROOT
+from Util.util_io import mri_path_niar
+from Util.config import OUTPUT_ROOT, NIAR
 
 # Load data
-bold_path = get_mri_file_path(dataset_name="MRIData",
-                              path=["sub-kaneff01", "func", "sub-kaneff01_task-effloc_run-001_bold.nii.gz"])
+s_id = "C01"
+r_id = "3"
+bold_img = nib.load(mri_path_niar(NIAR, "C01", "3"))
+
 output_path = os.path.join(OUTPUT_ROOT, "reho", "reho_map.nii.gz")
 os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
-bold_img = nib.load(bold_path)
 bold_data = bold_img.get_fdata()
 X, Y, Z, T = bold_data.shape
 

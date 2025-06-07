@@ -2,13 +2,13 @@ import os
 import nibabel as nib
 import numpy as np
 from nilearn import plotting
-from Util.util_io import get_mri_file_path
-from Util.config import OUTPUT_ROOT
+from Util.util_io import mri_path
+from Util.config import OUTPUT_ROOT, NIAR
 
 # Paths
 reho_path = os.path.join(OUTPUT_ROOT, "reho", "reho_map.nii.gz")
-anat_path = get_mri_file_path(
-    dataset_name="MRIData",
+anat_path = mri_path(
+    name=NIAR,
     path=["sub-kaneff01", "anat", "sub-kaneff01_T1w.nii.gz"]
 )
 save_path = os.path.join(OUTPUT_ROOT, "reho", "reho_vis.png")

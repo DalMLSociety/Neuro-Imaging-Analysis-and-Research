@@ -2,17 +2,17 @@ import os
 import nibabel as nib
 from multiprocessing import Process
 from Util.util_img import save_slices_along_axis
-from Util.util_io import get_mri_file_path
-from Util.config import OUTPUT_ROOT
+from Util.util_io import mri_path_niar
+from Util.config import OUTPUT_ROOT, NIAR
 import matplotlib
 matplotlib.use('MacOSX')  # option: TkAgg (Tkinter GUI), MacOSX
 
 
 # prepare target calls
 def run(axis_name):
-    file_path = get_mri_file_path(dataset_name='MRIData',
-                                  path=['sub-kaneff01', 'anat', 'sub-kaneff01_T1w.nii.gz'])
-    img = nib.load(file_path)
+    s_id = "C01"
+    r_id = "3"
+    img = nib.load(mri_path_niar(NIAR, "C01", "3"))
     output = os.path.join(OUTPUT_ROOT, f'{axis_name}-axis')
     save_slices_along_axis(img, axis=axis_name, output_dir=output)
 

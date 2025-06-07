@@ -2,13 +2,13 @@ import os
 import nibabel as nib
 import numpy as np
 from nilearn import datasets, input_data, connectome
-from Util.util_io import get_mri_file_path
-from Util.config import OUTPUT_ROOT
+from Util.util_io import mri_path_niar
+from Util.config import OUTPUT_ROOT, NIAR
 
 # load 4D functional MRI image
-file_path = get_mri_file_path(dataset_name='MRIData',
-                              path=['sub-kaneff01', 'func', 'sub-kaneff01_task-effloc_run-001_bold.nii.gz'])
-img = nib.load(file_path)
+s_id = "C01"
+r_id = "3"
+img = nib.load(mri_path_niar(NIAR, "C01", "3"))
 
 # Load brain parcellation atlas (AAL)
 atlas = datasets.fetch_atlas_aal()
