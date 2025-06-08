@@ -1,5 +1,6 @@
 import os
 from typing import Sequence
+from datetime import datetime
 
 
 # root_name: The root name of the repository (dataset)
@@ -19,3 +20,7 @@ def mri_path_niar(name: str, s_id: str, r_id: str):
 # r_id: resting-state run index (1, 2, 3)
 def mri_name(s_id: str, r_id: str):
     return f"Denoised_{s_id}_rs-{r_id}_MNI.nii.gz"
+
+
+def format_output_name(name: str):
+    return f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{name}"

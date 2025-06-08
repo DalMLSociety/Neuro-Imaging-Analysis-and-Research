@@ -2,7 +2,7 @@ import os
 from nilearn import input_data, plotting
 import numpy as np
 import nibabel as nib
-from Util.util_io import mri_path_niar
+from Util.util_io import mri_path_niar, format_output_name
 from Util.config import NIAR, OUTPUT_ROOT, seed_points
 import matplotlib
 matplotlib.use('MacOSX')
@@ -14,7 +14,7 @@ r_id = "3"
 img = nib.load(mri_path_niar(NIAR, s_id, r_id))
 
 # output path
-output_dir = os.path.join(OUTPUT_ROOT, 'seed-based')
+output_dir = os.path.join(OUTPUT_ROOT, format_output_name('seed-based'))
 os.makedirs(output_dir, exist_ok=True)
 
 
