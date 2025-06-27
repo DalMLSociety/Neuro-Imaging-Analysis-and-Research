@@ -12,8 +12,8 @@ def mri_path(name: str, path: Sequence[str]):
     return os.path.join(base_dir, *pre_path, name, *path)
 
 
-def mri_path_niar(name: str, s_id: str, r_id: str):
-    return mri_path(name, [mri_name(s_id, r_id)])
+def mri_path_niar(name: str, s_id: str, year: str):
+    return mri_path(name, [mri_name(s_id, year)])
 
 
 # s_id: C01-C16 or p01-p16

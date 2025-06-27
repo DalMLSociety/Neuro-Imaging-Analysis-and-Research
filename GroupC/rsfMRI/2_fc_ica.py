@@ -11,8 +11,8 @@ from Util.config import NIAR, OUTPUT_ROOT
 
 # Load your fMRI image
 s_id = "C01"
-r_id = "3"
-img = nib.load(mri_path_niar(NIAR, s_id, r_id))
+year = "3"
+img = nib.load(mri_path_niar(NIAR, s_id, year))
 
 # Compute brain mask
 mask_img = compute_epi_mask(img)
@@ -34,7 +34,7 @@ canica.fit(img)
 # Extract components
 components_img = canica.components_img_
 
-output_dir = os.path.join(OUTPUT_ROOT, format_output_name(f"ica_{s_id}_{r_id}"))
+output_dir = os.path.join(OUTPUT_ROOT, format_output_name(f"ica_{s_id}_year{year}"))
 os.makedirs(output_dir, exist_ok=True)
 
 # Save each ICA component as image

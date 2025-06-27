@@ -1,7 +1,11 @@
-OUTPUT_ROOT = 'output'
+OUTPUT_ROOT = '../../../output'
 NIAR = 'raw_data'
 
+Z_MIN = -72
+Z_MAX = 110
+
 seed_points = {
+
     "PCC": [-2, -52, 26],       # Posterior cingulate cortex – core node of the Default Mode Network (DMN), involved in self-referential thinking and memory retrieval
     "mPFC": [0, 52, -2],        # Medial prefrontal cortex – anterior DMN, associated with decision-making and internal mentation
     "L_IPL": [-45, -67, 36],    # Left inferior parietal lobule – part of DMN, involved in social cognition and perspective-taking

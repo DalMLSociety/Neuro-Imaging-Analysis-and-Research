@@ -33,8 +33,8 @@ def get_axis_world_range(affine, shape, axis):
 
 
 s_id = "p01"
-r_id = "1"
-img = nib.load(mri_path_niar(NIAR, s_id, r_id))
+year = "1"
+img = nib.load(mri_path_niar(NIAR, s_id, year))
 
 # Basic shape and affine matrix
 affine = img.affine

@@ -11,7 +11,7 @@ from Util.config import NIAR, OUTPUT_ROOT
 
 # ----- Config -----
 s_id = "C01"
-r_id = "3"
+year = "3"
 n_clusters = 10
 z_slices_to_plot = [10, 20, 30, 40]
 
@@ -20,7 +20,7 @@ output_dir = os.path.join(OUTPUT_ROOT, format_output_name("kmeans_clusters"))
 os.makedirs(output_dir, exist_ok=True)
 
 # ----- Load image -----
-img = nib.load(mri_path_niar(NIAR, s_id, r_id))
+img = nib.load(mri_path_niar(NIAR, s_id, year))
 mask_img = compute_epi_mask(img)
 
 # ----- Extract time series from brain voxels -----

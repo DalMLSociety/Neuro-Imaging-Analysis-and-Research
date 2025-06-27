@@ -7,9 +7,9 @@ from Util.config import NIAR, OUTPUT_ROOT
 from datetime import datetime
 
 # Setup
-s_id = "C01"
-r_id = "3"
-img = nib.load(mri_path_niar(NIAR, s_id, r_id))
+s_id = "p03"
+year = "1"
+img = nib.load(mri_path_niar(NIAR, s_id, year))
 data = img.get_fdata()
 z_slice = 30
 output_dir = os.path.join(OUTPUT_ROOT, format_output_name(f"bold_z{z_slice}"))
@@ -20,7 +20,6 @@ n_timepoints = data.shape[3]
 for t in range(n_timepoints):
     slice_2d = data[:, :, z_slice, t].T  # transpose for correct orientation
 
-    # 自动确定灰度范围
     vmin, vmax = np.percentile(slice_2d, [1, 99])
 
     plt.imshow(slice_2d, cmap="gray", vmin=vmin, vmax=vmax, origin="lower")
