@@ -20,10 +20,11 @@ y_true, y_pred, y_prob = [], [], []
 
 # MLP classifier
 mlp = MLPClassifier(
-    hidden_layer_sizes=(100,),
-    activation='relu',
-    alpha=1e-3,
-    max_iter=500,
+    hidden_layer_sizes=(15,4),
+    activation='tanh',
+    solver='adam',
+    alpha=1e-5,
+    max_iter=1000,
     random_state=42
 )
 
