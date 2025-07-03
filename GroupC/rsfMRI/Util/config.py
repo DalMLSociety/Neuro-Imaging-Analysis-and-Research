@@ -35,3 +35,36 @@ seed_points = {
 
     "V1": [0, -94, 4],          # Primary visual cortex – responsible for processing basic visual features
 }
+
+# MNI center coordinates for 33 DMN ROIs
+dmn_coords_33 = [
+    (-11,  55,  -5), ( 11,  53,  -6),
+    (-10,  50,  20), ( 10,  50,  19),
+    (-20,  31,  46), ( 23,  32,  46),
+    ( -5, -50,  35), (  7, -51,  34),
+    ( -6, -55,  12), (  6, -54,  13),
+    (-46, -64,  33), ( 50, -59,  34),
+    (-58, -21, -15), ( 59, -17, -18),
+    (-38,  17, -34), ( 43,  15, -35),
+    (-36,  23, -16), ( 37,  25, -16),
+    (-24, -30, -16), ( 26, -26, -18),
+    (-15,  -9, -18), ( 17,  -8, -16),
+    (-11,  12,   7), ( 13,  11,   9),
+    (-26, -82, -33), ( 29, -79, -34),
+    ( -6, -57, -45), (  8, -53, -48),
+    ( -7, -14,   8), (  7, -11,   8),
+    ( -7,  12, -12), (  7,   9, -12),
+    (  0, -22, -21)
+]
+
+# **Naming 33 ROIs in the order given in the paper's 'Functional space' figure**
+dmn_names_33 = [
+    # Right hemisphere
+    "R VMPFC", "R AMPFC", "R DLPFC", "R PCC", "R Rsp", "R PH", "R Amy",
+    "R VLPFC","R TP",   "R MTG",   "R PPC", "R T",   "R BF",  "R C",
+    "R CbH",   "R CbT",  "MidB",
+    # Left hemisphere
+    "L VMPFC", "L AMPFC","L DLPFC", "L PCC", "L Rsp", "L PH", "L Amy",
+    "L VLPFC","L TP",   "L MTG",   "L PPC", "L T",   "L BF",  "L C",
+    "L CbH",   "L CbT"
+]

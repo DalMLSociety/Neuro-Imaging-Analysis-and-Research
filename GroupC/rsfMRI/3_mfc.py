@@ -38,7 +38,8 @@ dmn_coords = [
 dmn_names = [
     "R VMPFC", "R AMPFC", "R DLPFC", "R PCC", "R Rsp", "R PH", "R Amy",
     "R VLPFC", "R TP",   "R MTG",   "R PPC", "R T",   "R BF",  "R C",
-    "R CbH",   "R CbT",  "MidB",
+    "R CbH",   "R CbT",
+    "MidB",
     "L VMPFC", "L AMPFC","L DLPFC", "L PCC", "L Rsp", "L PH", "L Amy",
     "L VLPFC","L TP",   "L MTG",   "L PPC", "L T",   "L BF",  "L C",
     "L CbH",   "L CbT"
@@ -53,7 +54,7 @@ n_rois = len(names_32)    # should be 32
 # === Extract Time Series ===
 masker = NiftiSpheresMasker(
     seeds=coords_32,
-    radius=6.0,
+    radius=5.0,
     detrend=True,
     standardize=True,
     t_r=2.0
