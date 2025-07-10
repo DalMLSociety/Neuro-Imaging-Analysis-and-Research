@@ -44,7 +44,7 @@ mlp = MLPClassifier(
 for train_idx, test_idx in loo.split(X_scaled):
     sub_id = all_ids[test_idx[0]]
     X_tr, X_te = X_scaled[train_idx], X_scaled[test_idx]
-    y_tr, y_te = y[train_idx],      y[test_idx]
+    y_tr, y_te = y[train_idx], y[test_idx]
     mlp.fit(X_tr, y_tr)
     y_hat = mlp.predict(X_te)[0]
     p_hat = mlp.predict_proba(X_te)[0,1]

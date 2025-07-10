@@ -9,8 +9,8 @@ import matplotlib
 matplotlib.use('pdf')
 
 # ---- Config ----
-s_id = "p10"
-seed_name = "DLPFC_L"
+s_id = "C02"
+seed_name = "PCC"
 radius = 8
 z_slices = [-20, -4, 0, 12, 24, 40, 52, 64]
 

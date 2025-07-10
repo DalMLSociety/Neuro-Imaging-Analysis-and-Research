@@ -20,7 +20,7 @@ y_true, y_pred, y_prob = [], [], []
 
 # MLP classifier
 mlp = MLPClassifier(
-    hidden_layer_sizes=(15,4),
+    hidden_layer_sizes=(15, 4),
     activation='tanh',
     solver='adam',
     alpha=1e-5,

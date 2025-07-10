@@ -14,8 +14,8 @@ from Util.config import NIAR, OUTPUT_ROOT, dmn_coords_33, dmn_names_33
 plt.rcParams['figure.constrained_layout.use'] = True
 
 # === Parameter Settings ===
-s_id = "C01"
-year = "1"
+s_id = "C02"
+year = "3"
 func_path = mri_path_niar(NIAR, s_id, year)
 img = nib.load(func_path)
 

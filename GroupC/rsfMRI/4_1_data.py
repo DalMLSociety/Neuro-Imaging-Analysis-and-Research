@@ -25,9 +25,9 @@ def compute_static_fc(sub_id: str, year: str) -> np.ndarray:
     """
     # 1) Load the fMRI file
     path = mri_path_niar(NIAR, sub_id, year)
-    img  = nib.load(path)
+    img = nib.load(path)
     # 2) Extract ROI time series & compute correlation matrix
-    ts  = masker.fit_transform(img)      # (timepoints, 33)
+    ts = masker.fit_transform(img)      # (timepoints, 33)
     mat = np.corrcoef(ts.T)              # (33, 33)
     # 3) Vectorize the upper triangle (excluding diagonal)
     iu = np.triu_indices_from(mat, k=1)
@@ -48,12 +48,12 @@ def build_subject_features(sub_id: str, years=("1", "2", "3")) -> np.ndarray:
 
     # 3) Compute statistics: mean, standard deviation, slope
     mean_feat = np.mean(fc_arr, axis=0)
-    std_feat  = np.std(fc_arr, axis=0)
-    t_pts     = np.array([1, 2, 3])
+    std_feat = np.std(fc_arr, axis=0)
+    t_pts = np.array([1, 2, 3])
     # Linear least squares: design matrix for slope calculation
-    A        = np.vstack([t_pts, np.ones_like(t_pts)]).T  # (3,2)
+    A = np.vstack([t_pts, np.ones_like(t_pts)]).T  # (3,2)
     solution = np.linalg.lstsq(A, fc_arr, rcond=None)[0]  # shape = (2, D)
-    slope_f  = solution[0, :]                               # shape = (D,)
+    slope_f = solution[0, :]                               # shape = (D,)
 
     # 4) Concatenate: 3D + 2D + 3D = 8D features
     return np.concatenate([
@@ -69,24 +69,24 @@ def build_subject_features(sub_id: str, years=("1", "2", "3")) -> np.ndarray:
 if __name__ == '__main__':
     # Define subject lists
     control_ids = [f"C{str(i).zfill(2)}" for i in range(1, 17)]
-    missing     = {"C03", "C09", "C10", "C13"}  # Subjects with missing data
+    missing = {"C03", "C09", "C10", "C13"}  # Subjects with missing data
     # Remove missing controls (now 12 controls vs. 16 patients)
     control_ids = [sub for sub in control_ids if sub not in missing]
     patient_ids = [f"P{str(i).zfill(2)}" for i in range(1, 17)]
-    all_ids     = control_ids + patient_ids
+    all_ids = control_ids + patient_ids
 
     # Cache directory for feature vectors
     cache_dir = os.path.join(OUTPUT_ROOT, "feature_cache")
     os.makedirs(cache_dir, exist_ok=True)
 
-    # — First loop: compute and save cache —
+    # compute and save cache
     for sub in tqdm(all_ids, desc="Computing features"):
         cache_path = os.path.join(cache_dir, f"{sub}_features.npy")
         if not os.path.exists(cache_path):
             feats = build_subject_features(sub)
             np.save(cache_path, feats)
 
-    # — Second loop: load cached features to assemble X, y —
+    # load cached features to assemble X, y
     X_list, y_list = [], []
     for sub in all_ids:
         feats = np.load(os.path.join(cache_dir, f"{sub}_features.npy"))
