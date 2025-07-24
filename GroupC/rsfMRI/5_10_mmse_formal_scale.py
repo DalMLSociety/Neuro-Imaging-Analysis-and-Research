@@ -1,0 +1,106 @@
+# File: 5_10_mmse_formal_scale.py
+
+import os
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import datetime
+from Util.config import OUTPUT_ROOT, dmn_names_33
+
+def main():
+    # 1. load FC dataset
+    data = np.load(os.path.join(OUTPUT_ROOT, 'fc_datasets', 'fc_data_16x3.npz'))
+    fc      = data['fc']       # (48, 528)
+    subject = data['subject']  # (48,)
+
+    # 2. load clinical data and compute avg MMSE per subject
+    df = pd.read_excel('demoSCA7.xlsx')
+    df['subject'] = df.index // 3 + 1
+    df['year']    = df.groupby('subject').cumcount() + 1
+
+    subs = np.unique(df['subject'])
+    avg_mmse = np.array([df.loc[df['subject']==s, 'mmse'].mean() for s in subs])
+
+    # 3. sort subjects by avg MMSE
+    order_subs      = np.argsort(avg_mmse)
+    subs_sorted     = subs[order_subs]
+    avg_mmse_sorted = avg_mmse[order_subs]
+    n_subj          = len(subs_sorted)
+
+    # 4. compute per-subject FC means, mins, maxs
+    D = fc.shape[1]
+    fc_means = np.zeros((n_subj, D))
+    fc_mins  = np.zeros((n_subj, D))
+    fc_maxs  = np.zeros((n_subj, D))
+    for i, s in enumerate(subs_sorted):
+        vals = fc[subject == s, :]  # (3, D)
+        fc_means[i] = vals.mean(axis=0)
+        fc_mins[i]  = vals.min(axis=0)
+        fc_maxs[i]  = vals.max(axis=0)
+
+    # 5. compute regression slopes of FC means vs avg MMSE
+    slopes = np.array([
+        np.polyfit(avg_mmse_sorted, fc_means[:, j], 1)[0]
+        for j in range(D)
+    ])
+
+    # 6. rank all ROI-pairs by absolute slope
+    sorted_idx = np.argsort(np.abs(slopes))[::-1]
+    rank_map   = {idx: rank+1 for rank, idx in enumerate(sorted_idx)}
+
+    # 7. build ROI-pair names
+    pair_names = []
+    n_rois = len(dmn_names_33)
+    for i in range(n_rois):
+        for j in range(i+1, n_rois):
+            pair_names.append(f"{dmn_names_33[i]}–{dmn_names_33[j]}")
+
+    # 8. prepare output directory
+    ts = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    out_dir = os.path.join(OUTPUT_ROOT, f"{ts}_mmse_formal_scale")
+    os.makedirs(out_dir, exist_ok=True)
+
+    # 9. plot all ROI-pair FC vs avg MMSE
+    x = avg_mmse_sorted
+    for idx, name in enumerate(pair_names):
+        means = fc_means[:, idx]
+        mins  = fc_mins[:, idx]
+        maxs  = fc_maxs[:, idx]
+        yerr  = np.vstack([means - mins, maxs - means])
+
+        # regression line
+        m, b = np.polyfit(x, means, 1)
+        y_fit = m * x + b
+
+        fig, ax = plt.subplots(figsize=(6, 4))
+        ax.errorbar(
+            x, means, yerr=yerr,
+            fmt='o-', capsize=3, markersize=4, linewidth=1,
+            label='mean ± range'
+        )
+        ax.plot(x, y_fit, 'r--', linewidth=1.5, label=f'slope={m:.3f}')
+
+        # title and labels with global rank
+        rank = rank_map[idx]
+        ax.set_title(f"#{rank} {name}")
+        ax.set_xlabel("Average MMSE")
+        ax.set_ylabel("Correlation")
+
+        # x‑ticks at each subject’s avg MMSE
+        ax.set_xticks(x)
+        ax.set_xticklabels([f"{val:.1f}" for val in x], rotation=90, fontsize='small')
+
+        ax.legend(fontsize='small')
+        plt.tight_layout()
+
+        # filename with rank prefix
+        safe = name.replace(' ', '_').replace('/', '_').replace('–', '_')
+        fname = f"#{rank:03d}_pair_{idx+1:03d}_{safe}.png"
+        plt.savefig(os.path.join(out_dir, fname), dpi=150)
+        plt.close(fig)
+
+    print(f"All {D} ROI-pair plots saved in:\n  {out_dir}")
+    print("X‑axis positions now correspond to each subject’s true average MMSE.")
+
+if __name__ == "__main__":
+    main()
